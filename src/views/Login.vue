@@ -5,7 +5,7 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <form @submit.prevent="onSignin">
+              <form @submit.prevent="onLogin">
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -66,7 +66,7 @@
         }
       },
       methods: {
-        onSignin () {
+        onLogin () {
           this.$store.dispatch('signUserIn', {username: this.username, email: this.email, password: this.password})
         }
       }

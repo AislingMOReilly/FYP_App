@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-navigation-drawer temporary v-model="sideNav">
-
+    <v-navigation-drawer app v-model="sideNav">
+      
       <v-list-item>
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
@@ -37,7 +37,7 @@
       </v-app-bar-nav-icon>
 
       <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">App</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Ash's App</router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>

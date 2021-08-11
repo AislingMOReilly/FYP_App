@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                        <form @submit.prevent="onSignup">
+                        <form @submit.prevent="onRegister">
                             <v-layout row>
                                 <v-flex xs12>
                                     <v-text-field
@@ -90,24 +90,34 @@
                     ? "Passwords do not match"
                     : "";
             },
-            user() {
-                return this.$store.getters.user;
-            },
+            // user() {
+            //     return this.$store.getters.user;
+            // },
         },
         watch: {
-            user(value) {
-                if (value !== null && value !== undefined) {
-                    this.$router.push("/");
-                }
-            },
+            // user(value) {
+            //     if (value !== null && value !== undefined) {
+            //         this.$router.push("/");
+            //     }
+            // },
         },
         methods: {
-            onSignup() {
-                this.$store.dispatch("signUserUp", {
-                    username: this.username,
-                    email: this.email,
-                    password: this.password,
-                });
+            // onRegister() {
+            //     this.$store.dispatch("signUserUp", {
+            //         username: this.username,
+            //         email: this.email,
+            //         password: this.password,
+            //     });
+            // },
+            onRegister() {
+                // firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                // .then(() => {
+                //     alert("Successfully registered");
+                //     this.$router.push("/");
+                // })
+                // .catch(error => {
+                //     alert(error.message);
+                // });
             },
         },
     };
