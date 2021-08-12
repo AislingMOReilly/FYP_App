@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="sideNav">
+    <v-navigation-drawer temporary app v-model="sideNav">
       
       <v-list-item>
         <v-list-item-avatar>
@@ -25,6 +25,13 @@
           </v-list-item-icon>
           <v-list-item-content>{{ item.title }}</v-list-item-content>
         </v-list-item>
+
+        <v-list-item
+          v-if="userIsAuthenticated"
+          @click="onLogout">
+            <v-icon>exit_to_app</v-icon>
+          <v-list-item-content>Logout</v-list-item-content>
+        </v-list-item>
       </v-list>
 
     </v-navigation-drawer>
@@ -37,7 +44,7 @@
       </v-app-bar-nav-icon>
 
       <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Ash's App</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 1</router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
@@ -49,6 +56,14 @@
           :to="item.link">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
+        </v-btn>
+
+        <v-btn
+          v-if="userIsAuthenticated"
+          flat
+          @click="onLogout">
+          <v-icon left dark>exit_to_app</v-icon>
+          Logout
         </v-btn>
       </v-toolbar-items>
 
@@ -64,15 +79,6 @@
           transition="scale-transition"
           width="40"
         />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       </div>
 
       <v-spacer></v-spacer>
@@ -87,7 +93,7 @@
       </v-btn> 
     </v-app-bar> -->
 
-    <v-main>
+    <v-main class="fill-height">
       <router-view />
     </v-main>
   </v-app>
@@ -98,17 +104,38 @@ export default {
   name: "App",
 
   data: () => ({
-    //
-   // return : {
-        sideNav: false,
-        menuItems: [
-          {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
-          {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
-          //{icon: 'mdi-account-plus', title: 'Register', link: '/register'},
+      sideNav: false,
+      // menuItems: [
+      //   {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
+      //   {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
+      //   //{icon: 'mdi-account-plus', title: 'Register', link: '/register'},
+      //   {icon: 'mdi-pencil-plus-outline', title: 'Register', link: '/register'},
+      //   {icon: 'mdi-login', title: 'Login', link: '/login'},
+      // ],
+  }),
+  computed: {
+      menuItems () {
+        let menuItems = [
           {icon: 'mdi-pencil-plus-outline', title: 'Register', link: '/register'},
           {icon: 'mdi-login', title: 'Login', link: '/login'},
-        ],
-     // }
-  }),
+        ]
+        if (this.userIsAuthenticated) {
+          menuItems = [
+            {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
+            {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods: {
+      onLogout () {
+        this.$store.dispatch('logout')
+      }
+    }
+
 };
 </script>
