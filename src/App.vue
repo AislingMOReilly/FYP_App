@@ -44,13 +44,13 @@
       </v-app-bar-nav-icon>
 
       <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 1</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 2</router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat
+        <v-btn text
           v-for="item in menuItems"
           :key="item.title"
           :to="item.link">
@@ -60,9 +60,9 @@
 
         <v-btn
           v-if="userIsAuthenticated"
-          flat
+          text
           @click="onLogout">
-          <v-icon left dark>exit_to_app</v-icon>
+          <!-- <v-icon left dark>exit_to_app</v-icon> -->
           Logout
         </v-btn>
       </v-toolbar-items>
@@ -93,8 +93,10 @@
       </v-btn> 
     </v-app-bar> -->
 
-    <v-main class="fill-height">
-      <router-view />
+    <v-main>
+      <v-container fill-height>
+        <router-view />
+      </v-container>  
     </v-main>
   </v-app>
 </template>

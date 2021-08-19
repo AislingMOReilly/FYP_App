@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import * as firebase from "firebase";
+import { auth } from "../firebase";
 
 Vue.use(Vuex);
 
@@ -28,7 +28,8 @@ export default new Vuex.Store({
     registerUser ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      alert("Trying to register");
+      auth.createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
             commit('setLoading', false)
@@ -37,7 +38,8 @@ export default new Vuex.Store({
               registeredMeetups: []
             }
             commit('setUser', newUser)
-          }
+          },
+          alert("Successfully registered")
         )
         .catch(
           error => {
@@ -50,7 +52,8 @@ export default new Vuex.Store({
     loginUser ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      alert("Trying to login");
+      auth.signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
             commit('setLoading', false)
@@ -73,7 +76,7 @@ export default new Vuex.Store({
       commit('setUser', {id: payload.uid, registeredMeetups: []})
     },
     logout ({commit}) {
-      firebase.auth().signOut()
+      auth.signOut()
       commit('setUser', null)
     },
     clearError ({commit}) {

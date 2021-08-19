@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+        <alert @dismissed="onDismissed" :text="error.message"></alert>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -82,6 +82,8 @@
       },
       methods: {
         onLogin () {
+          alert("You tried to login")
+          console.log({username: this.username, email: this.email, password: this.password})
           this.$store.dispatch('loginUser', {username: this.username, email: this.email, password: this.password})
         },
         onDismissed () {
@@ -90,3 +92,42 @@
       }
   };
 </script>
+
+<style>
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
+    @-moz-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-webkit-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-o-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
