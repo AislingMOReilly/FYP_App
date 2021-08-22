@@ -113,7 +113,6 @@
         },
         methods: {
             onRegister () {
-                alert("You clicked a button");
                 console.log({username: this.username, email: this.email, password: this.password})
                 this.$store.dispatch('registerUser', {username: this.username, email: this.email, password: this.password})
             },

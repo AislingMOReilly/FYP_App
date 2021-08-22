@@ -82,7 +82,6 @@
       },
       methods: {
         onLogin () {
-          alert("You tried to login")
           console.log({username: this.username, email: this.email, password: this.password})
           this.$store.dispatch('loginUser', {username: this.username, email: this.email, password: this.password})
         },

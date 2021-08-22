@@ -6,6 +6,26 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    //////////////////// Testing carousel ////////////////////
+    // loadedMeetups: [
+    //   {
+    //     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
+    //     id: 'afajfjadfaadfa323',
+    //     title: 'Meetup in New York',
+    //     //date: new Date(),
+    //     location: 'Upper Back',
+    //     description: 'Darker around edges '
+    //   },
+    //   {
+    //     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
+    //     id: 'aadsfhbkhlk1241',
+    //     title: 'Meetup in Paris',
+    //     //date: new Date(),
+    //     location: 'Left Shoulder',
+    //     description: 'Raised surface'
+    //   }
+    // ],
+    //////////////////// Testing carousel ////////////////////
     user: null,
     loading: false,
     error: null
@@ -28,7 +48,6 @@ export default new Vuex.Store({
     registerUser ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
-      alert("Trying to register");
       auth.createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
@@ -52,7 +71,6 @@ export default new Vuex.Store({
     loginUser ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
-      alert("Trying to login");
       auth.signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {

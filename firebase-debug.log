@@ -23,3 +23,43 @@ Before we get started, keep in mind:
 
   * You are initializing within an existing Firebase project directory
 
+[debug] [2021-08-19T18:25:58.791Z] ----------------------------------------------------------------------
+[debug] [2021-08-19T18:25:58.793Z] Command:       /usr/bin/node /usr/local/bin/firebase serve
+[debug] [2021-08-19T18:25:58.794Z] CLI Version:   9.16.0
+[debug] [2021-08-19T18:25:58.794Z] Platform:      linux
+[debug] [2021-08-19T18:25:58.794Z] Node Version:  v10.19.0
+[debug] [2021-08-19T18:25:58.794Z] Time:          Thu Aug 19 2021 19:25:58 GMT+0100 (Irish Standard Time)
+[debug] [2021-08-19T18:25:58.794Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-19T18:25:58.796Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-08-19T18:25:58.878Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-19T18:25:58.878Z] > authorizing via signed-in user (aisling.oreilly@mycit.ie)
+[debug] [2021-08-19T18:25:58.878Z] [iam] checking project fyp-project-2e133 for permissions ["firebase.projects.get"]
+[debug] [2021-08-19T18:25:58.880Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-08-19T18:25:58.880Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-08-19T18:25:59.084Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Thu, 19 Aug 2021 18:25:59 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-08-19T18:25:59.107Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fyp-project-2e133:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-08-19T18:25:59.241Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-08-19T18:25:59.242Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-08-19T18:25:59.846Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 19 Aug 2021 18:25:59 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=608","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-08-19T18:25:59.849Z] > refreshing access token with scopes: []
+[debug] [2021-08-19T18:25:59.849Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-08-19T18:25:59.956Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 19 Aug 2021 18:25:59 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-08-19T18:25:59.980Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133 [none]
+[debug] [2021-08-19T18:26:00.668Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133 200
+[debug] [2021-08-19T18:26:00.668Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133 {"projectId":"fyp-project-2e133","projectNumber":"133406334225","displayName":"fyp-project","name":"projects/fyp-project-2e133","resources":{"hostingSite":"fyp-project-2e133","storageBucket":"fyp-project-2e133.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[info] 
+[info] === Serving from '/home/ash/Final Year Project/fyp-app'...
+[info] 
+[debug] [2021-08-19T18:26:00.672Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/fyp-project-2e133/sites 
+[debug] [2021-08-19T18:26:01.689Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/fyp-project-2e133/sites 200
+[debug] [2021-08-19T18:26:01.690Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/fyp-project-2e133/sites {"sites":[{"name":"projects/133406334225/sites/fyp-project-2e133","defaultUrl":"https://fyp-project-2e133.web.app","appId":"1:133406334225:web:ebe1dffc348451016980b0","type":"DEFAULT_SITE"}]}
+[debug] [2021-08-19T18:26:01.690Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133/webApps/1:133406334225:web:ebe1dffc348451016980b0/config [none]
+[debug] [2021-08-19T18:26:02.562Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133/webApps/1:133406334225:web:ebe1dffc348451016980b0/config 200
+[debug] [2021-08-19T18:26:02.563Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fyp-project-2e133/webApps/1:133406334225:web:ebe1dffc348451016980b0/config {"projectId":"fyp-project-2e133","appId":"1:133406334225:web:ebe1dffc348451016980b0","storageBucket":"fyp-project-2e133.appspot.com","locationId":"europe-west","apiKey":"AIzaSyCQwyNvmG1ONwSW8Lt7GF_7ZcUeUKCdUPI","authDomain":"fyp-project-2e133.firebaseapp.com","messagingSenderId":"133406334225","measurementId":"G-SPPX4D0SC3"}
+[info] i  hosting: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [19/Aug/2021:18:27:12 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [19/Aug/2021:18:27:12 +0000] \"GET / HTTP/1.1\" 404 139 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\""}}

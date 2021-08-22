@@ -44,7 +44,7 @@
       </v-app-bar-nav-icon>
 
       <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 2</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 1</router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
