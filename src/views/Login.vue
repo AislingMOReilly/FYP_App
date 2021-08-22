@@ -39,7 +39,7 @@
                   <v-flex xs12>
                     <v-btn type="submit"  :disabled="loading" :loading="loading">Login
                       <span slot="loader" class="custom-loader">
-                        <v-icon light>cached</v-icon>
+                        <v-icon light>mdi-cached</v-icon>
                        </span>
                     </v-btn>
                   </v-flex>

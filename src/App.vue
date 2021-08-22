@@ -29,7 +29,9 @@
         <v-list-item
           v-if="userIsAuthenticated"
           @click="onLogout">
-            <v-icon>exit-to-app</v-icon>
+          <v-list-item-icon>
+            <v-icon>mdi-exit-to-app</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>Logout</v-list-item-content>
         </v-list-item>
       </v-list>
@@ -40,12 +42,10 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon
         @click.native.stop="sideNav = !sideNav"
-        class="hidden-sm-and-up ">
+        class="hidden-sm-and-up">
       </v-app-bar-nav-icon>
 
-      <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 2</router-link>
-      </v-app-bar-title>
+      <v-app-bar-title class="hidden-xs-only">Mole Analyser</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
@@ -62,7 +62,7 @@
           v-if="userIsAuthenticated"
           text
           @click="onLogout">
-          <!-- <v-icon left dark>exit_to_app</v-icon> -->
+          <v-icon left dark>mdi-exit-to-app</v-icon>
           Logout
         </v-btn>
       </v-toolbar-items>
@@ -107,13 +107,6 @@ export default {
 
   data: () => ({
       sideNav: false,
-      // menuItems: [
-      //   {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
-      //   {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
-      //   //{icon: 'mdi-account-plus', title: 'Register', link: '/register'},
-      //   {icon: 'mdi-pencil-plus-outline', title: 'Register', link: '/register'},
-      //   {icon: 'mdi-login', title: 'Login', link: '/login'},
-      // ],
   }),
   computed: {
       menuItems () {

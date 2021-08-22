@@ -61,10 +61,9 @@
                             </v-layout>
                             <v-layout row>
                                 <v-flex xs12>
-                                    <!-- <v-btn type="submit">Register</v-btn> -->
                                     <v-btn type="submit" :loading="loading" :disabled="loading" color="secondary">Register
                                         <span slot="loader" class="custom-loader">
-                                            <v-icon light>cached</v-icon>
+                                            <v-icon light>mdi-cached</v-icon>
                                         </span>
                                     </v-btn>
                                 </v-flex>
