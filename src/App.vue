@@ -44,7 +44,7 @@
       </v-app-bar-nav-icon>
 
       <v-app-bar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 1</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Ash's App 2</router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
@@ -125,6 +125,8 @@ export default {
           menuItems = [
             {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
             {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
+            {icon: 'mdi-view-dashboard-outline', title: 'Images', link: '/images'},
+            {icon: 'mdi-account-circle-outline', title: 'Assessment', link: '/assessment'},
           ]
         }
         return menuItems
