@@ -6,6 +6,7 @@ import store from "./store";
 import alertComp from "./components/Alert.vue";
 import vuetify from "./plugins/vuetify";
 import {auth } from "./firebase";
+import * as tf from "@tensorflow/tfjs";
 
 Vue.config.productionTip = false;
 Vue.component("alert", alertComp);

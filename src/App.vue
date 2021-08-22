@@ -29,7 +29,7 @@
         <v-list-item
           v-if="userIsAuthenticated"
           @click="onLogout">
-            <v-icon>exit_to_app</v-icon>
+            <v-icon>exit-to-app</v-icon>
           <v-list-item-content>Logout</v-list-item-content>
         </v-list-item>
       </v-list>
@@ -125,8 +125,8 @@ export default {
           menuItems = [
             {icon: 'mdi-view-dashboard-outline', title: 'Dashboard', link: '/dashboard'},
             {icon: 'mdi-account-circle-outline', title: 'Profile', link: '/profile'},
-            {icon: 'mdi-view-dashboard-outline', title: 'Images', link: '/images'},
-            {icon: 'mdi-account-circle-outline', title: 'Assessment', link: '/assessment'},
+            {icon: 'mdi-image-multiple-outline', title: 'Images', link: '/images'},
+            {icon: 'mdi-test-tube', title: 'Assessment', link: '/assessment'},
           ]
         }
         return menuItems

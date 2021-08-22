@@ -2,22 +2,25 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center text-sm-right">
-        <v-btn large router to="/meetups" color="primary">Explore Meetups</v-btn>
+        <v-btn large router to="/meetups" color="primary">View Files</v-btn>
       </v-flex>
       <v-flex xs12 sm6 class="text-xs-center text-sm-left">
-        <v-btn large router to="/meetup/new" color="secondary">Organize Meetup</v-btn>
+        <v-btn large router to="/meetup/new" color="secondary">Upload Image</v-btn>
+      </v-flex>
+      <v-flex xs12 sm6 class="text-xs-center text-sm-left">
+        <v-btn large router to="/meetup/new" color="secondary">Request Assessment</v-btn>
       </v-flex>
     </v-layout>
     <v-layout row wrap class="mt-2">
       <v-flex xs12>
         <v-carousel style="cursor: pointer;">
           <v-carousel-item
-            v-for="meetup in meetups"
-            :src="meetup.imageUrl"
-            :key="meetup.id">
+            v-for="mole in moles"
+            :src="mole.imageUrl"
+            :key="mole.id">
             <!-- @click="onLoadMeetup(meetup.id)" -->
             <div class="title">
-              {{ meetup.title }}
+              {{ mole.title }}
             </div>
           </v-carousel-item>
         </v-carousel>
@@ -35,7 +38,7 @@
   export default {
     data () {
         return {
-          meetups: [
+          moles: [
             {
               imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
               id: 'afajfjadfaadfa323',
