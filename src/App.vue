@@ -45,7 +45,7 @@
         class="hidden-sm-and-up">
       </v-app-bar-nav-icon>
 
-      <v-app-bar-title class="hidden-xs-only">Mole Analyser</v-app-bar-title>
+      <v-app-bar-title class="hidden-xs-only" style="min-width: 150px;">Mole Analyser</v-app-bar-title>
 
       <v-spacer></v-spacer>
 

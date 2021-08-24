@@ -5,11 +5,17 @@ import Login from "../views/Login.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: () =>
+  //   import(/* webpackChunkName: "register" */ "../views/Home.vue"),
+  // },
   {
     path: "/",
     name: "Home",
     component: () =>
-    import(/* webpackChunkName: "register" */ "../views/Home.vue"),
+    import(/* webpackChunkName: "dashboard" */ "../views/Dashboard.vue"),
   },
   {
     path: "/login",

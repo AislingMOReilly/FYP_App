@@ -31,12 +31,14 @@
 
       async predict() {
         let lesionImage = this.$refs.image;
-        let modelInput = tf.browser.fromPixels(lesionImage).resizeNearestNeighbor([512, 512]).toFloat().expandDims();
+        //let modelInput = tf.browser.fromPixels(lesionImage).resizeNearestNeighbor([512, 512]).toFloat().expandDims();
+        let modelInput = tf.image.resizeBilinear(tf.browser.fromPixels(lesionImage), [512, 512], true).toFloat().div(tf.scalar(127)).expandDims();
+        console.log(modelInput);
         let prediction = await this.model.predict(modelInput).data();
         console.log(prediction);
 
         if(prediction[0] <= .5) {
-          alert("Likely Benign");
+          alert(prediction[0]);
         }
         else {
           alert("May display signs of malignancy");

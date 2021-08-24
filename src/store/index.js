@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { auth } from "../firebase";
-//import { db } from "../firebase";
+import { db } from "../firebase";
 
 Vue.use(Vuex);
 
@@ -12,18 +12,18 @@ export default new Vuex.Store({
       {
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
         id: 'afajfjadfaadfa323',
-        title: 'Lesion in New York',
+        title: 'Lesion B',
         date: new Date(),
-        location: 'New York',
-        description: 'New York, New York!'
+        location: 'Left shoulder',
+        description: 'Dark mole on left shoulder'
       },
       {
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
         id: 'aadsfhbkhlk1241',
-        title: 'Lesion in Paris',
+        title: 'Lesion B',
         date: new Date(),
-        location: 'Paris',
-        description: 'It\'s Paris!'
+        location: 'Upper back',
+        description: 'Asymmetrical lesion on upper back'
       }
     ],
     //////////////////// Testing carousel ////////////////////
@@ -66,34 +66,44 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    // loadLesions ({commit}) {
-    //   commit('setLoading', true)
-    //   db.collection('users')
-    //   firebase.database().ref('lesions').once('value')
-    //     .then((data) => {
-    //       const lesions = []
-    //       const obj = data.val()
-    //       for (let key in obj) {
-    //         lesions.push({
-    //           id: key,
-    //           title: obj[key].title,
-    //           description: obj[key].description,
-    //           imageUrl: obj[key].imageUrl,
-    //           date: obj[key].date,
-    //           location: obj[key].location,
-    //           creatorId: obj[key].creatorId
-    //         })
-    //       }
-    //       commit('setLoadedLesions', lesions)
-    //       commit('setLoading', false)
-    //     })
-    //     .catch(
-    //       (error) => {
-    //         console.log(error)
-    //         commit('setLoading', false)
-    //       }
-    //     )
-    // },
+    loadLesions ({commit, getters}) {
+       commit('setLoading', true)
+       db.collection('users').doc(getters.user.id).collection('lesions')
+        .onSnapshot((querySnapshot) => {
+          var lesions = []
+          querySnapshot.forEach((doc) => {
+            lesions.push({
+              id: doc.id,
+              name: doc.data().name,
+            })
+          })
+          commit('setLoadedLesions', lesions)
+          commit('setLoading', false)
+        })    
+      //  firebase.database().ref('files').once('value')
+      //    .then((data) => {
+      //      const lesions = []
+      //      const obj = data.val()
+      //      for (let key in obj) {
+      //        lesions.push({
+      //          id: key,
+      //          title: obj[key].title,
+      //          description: obj[key].description,
+      //          imageUrl: obj[key].imageUrl,
+      //          date: obj[key].date,
+      //          location: obj[key].location,
+      //        })
+      //      }
+      //      commit('setLoadedLesions', lesions)
+      //      commit('setLoading', false)
+      //    })
+         .catch(
+           (error) => {
+             console.log(error)
+             commit('setLoading', false)
+           }
+         )
+     },
     registerUser ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
@@ -126,7 +136,8 @@ export default new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
-              registeredLesions: []
+              registeredLesions: [],
+              fbKeys: {}
             }
             commit('setUser', newUser)
           }
@@ -140,7 +151,7 @@ export default new Vuex.Store({
         )
     },
     autoSignIn ({commit}, payload) {
-      commit('setUser', {id: payload.uid, registeredLesions: []})
+      commit('setUser', {id: payload.uid, registeredLesions: [], fbKeys:{} })
     },
     logout ({commit}) {
       auth.signOut()
@@ -156,9 +167,11 @@ export default new Vuex.Store({
         return lesionA.date > lesionB.date
       })
     },
+    /////////Maybe redundant////////////
     featuredLesions (state, getters) {
-      return getters.loadedLesions.slice(0, 5)
+       return getters.loadedLesions.slice(0, 5)
     },
+    ///////////////
     loadedLesion (state) {
       return (lesionId) => {
         return state.loadedLesions.find((lesion) => {
