@@ -12,16 +12,18 @@ export default new Vuex.Store({
       {
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
         id: 'afajfjadfaadfa323',
-        title: 'Lesion B',
-        date: new Date(),
+        //timestamp: new Date(),
+        timestamp: '14 July 2021 at 14:08:00 UTC+1', 
+        risk_result: 0.04,
         location: 'Left shoulder',
         description: 'Dark mole on left shoulder'
       },
       {
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
         id: 'aadsfhbkhlk1241',
-        title: 'Lesion B',
-        date: new Date(),
+        //timestamp: new Date(),
+        timestamp: '28 April 2021 at 07:34:00 UTC+1',
+        risk_result: 0.12,
         location: 'Upper back',
         description: 'Asymmetrical lesion on upper back'
       }
@@ -48,8 +50,8 @@ export default new Vuex.Store({
       if (payload.description) {
         lesion.description = payload.description
       }
-      if (payload.date) {
-        lesion.date = payload.date
+      if (payload.timestamp) {
+        lesion.timestamp = payload.timestamp
       }
     },
     setUser (state, payload) {
@@ -74,7 +76,10 @@ export default new Vuex.Store({
           querySnapshot.forEach((doc) => {
             lesions.push({
               id: doc.id,
-              name: doc.data().name,
+              location: doc.data().location,
+              risk_result: doc.data().risk_result,
+              timestamp: doc.data().timestamp,
+              url: doc.data().url,
             })
           })
           commit('setLoadedLesions', lesions)
@@ -113,7 +118,7 @@ export default new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
-              registeredLesions: []
+              lesions: []
             }
             commit('setUser', newUser)
           },
@@ -136,8 +141,7 @@ export default new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
-              registeredLesions: [],
-              fbKeys: {}
+              lesions: [],
             }
             commit('setUser', newUser)
           }
@@ -151,7 +155,7 @@ export default new Vuex.Store({
         )
     },
     autoSignIn ({commit}, payload) {
-      commit('setUser', {id: payload.uid, registeredLesions: [], fbKeys:{} })
+      commit('setUser', {id: payload.uid, lesions: []})
     },
     logout ({commit}) {
       auth.signOut()
@@ -164,7 +168,7 @@ export default new Vuex.Store({
   getters: {
     loadedLesions (state) {
       return state.loadedLesions.sort((lesionA, lesionB) => {
-        return lesionA.date > lesionB.date
+        return lesionA.timestamp > lesionB.timestamp
       })
     },
     /////////Maybe redundant////////////

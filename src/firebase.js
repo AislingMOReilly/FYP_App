@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/analytics"; // Optional??
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -21,7 +22,8 @@ firebase.analytics();
 
 const db = firebase.firestore();
 const auth = firebase.auth();
+const cloudStore = firebase.storage();
 
 const usersCollection = db.collection("users");
 
-export { db, auth, usersCollection };
+export { db, auth, usersCollection, cloudStore };

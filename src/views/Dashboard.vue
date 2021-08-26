@@ -6,14 +6,14 @@
           <tr>
             <th class="text-left">First Name</th>
             <th class="text-left">Last Name</th>
-            <th class="text-left">Age</th>
+            <th class="text-left">DOB</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in userData" :key="item.last_name">
+          <tr v-for="item in users" :key="item.last_name">
             <td>{{ item.first_name }}</td>
             <td>{{ item.last_name }}</td>
-            <td>{{ item.age }}</td>
+            <td>{{ item.dob }}</td>
           </tr>
         </tbody>
       </template>
@@ -57,8 +57,8 @@
                   </div>
                 </v-card-title>
                 <v-card-actions>
-                  <v-btn flat :to="'/lesions/' + lesion.id">
-                    <v-icon left light>arrow_forward</v-icon>
+                  <v-btn text :to="'/lesions/' + lesion.id">
+                    <v-icon left light>mdi-arrow-forward</v-icon>
                     View File
                   </v-btn>
                 </v-card-actions>
@@ -79,11 +79,7 @@
   export default {
     data () {
       return {
-        userData: [
-          { first_name: 'A', last_name: 'B', age: '1' },
-          { first_name: 'C', last_name: 'D', age: '2' },
-          { first_name: 'E', last_name: 'F', age: '3' }
-        ],
+        users: this.readUsers()
       }
     },
     computed: {
@@ -92,28 +88,26 @@
       }
     },
     mounted () {
-      this.readUsers();
     }, 
     methods: {
       readUsers () {
-        let userData2 = []
+        let userData = []
         usersCollection
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            userData2.push({
+            userData.push({
               id: doc.id,
               first_name: doc.data().first_name,
               last_name: doc.data().last_name,
-              age: doc.data().age,
+              dob: doc.data().dob,
+              email: doc.data().email,
             });
-            console.log(doc.id, " => ", doc.data());
           });
-          console.log(userData2)
         })
         .catch((error) => {
           console.log("Error getting documents: ", error);
         });
-        //return userData
+        return userData
       } 
     }  
   }

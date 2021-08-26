@@ -42,16 +42,18 @@
             {
               imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
               id: 'afajfjadfaadfa323',
-              title: 'Meetup in New York',
-              //date: new Date(),
+              //timestamp: new Date(),
+              timestamp: '14 July 2021 at 14:08:00 UTC+1', 
+              risk_result: 0.04,
               location: 'Upper Back',
-              description: 'Darker around edges '
+              description: 'Darker around edges'
             },
             {
               imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
               id: 'aadsfhbkhlk1241',
-              title: 'Meetup in Paris',
-              //date: new Date(),
+              //timestamp: new Date(),
+              timestamp: '28 April 2021 at 07:34:00 UTC+1',
+              risk_result: 0.12,
               location: 'Left Shoulder',
               description: 'Raised surface'
             }

@@ -17,7 +17,7 @@ new Vue({
   vuetify,
   render: (h) => h(App),
   created () {
-    // firebase.auth().onAuthStateChanged((user) => {
+
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.$store.dispatch('autoSignIn', user)
