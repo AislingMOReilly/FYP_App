@@ -118,6 +118,7 @@ export default new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
+              email: payload.email,
               lesions: []
             }
             commit('setUser', newUser)
@@ -141,6 +142,7 @@ export default new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
+              email: payload.email,
               lesions: [],
             }
             commit('setUser', newUser)

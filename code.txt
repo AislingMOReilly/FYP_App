@@ -1,0 +1,66 @@
+<v-layout row>
+      <v-flex class="text-center font-weight-black">
+        <h1>Upload a photo</h1>
+      </v-flex>
+    </v-layout>
+    <v-spacer></v-spacer>
+
+    <v-layout row>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <v-card-text>
+            <v-container>
+              <!-- <form @submit.prevent="writeToFb"> -->
+              <form @submit.prevent="onUpload">  
+                <v-layout row>
+                  <v-flex xs12 >
+                        <v-btn :disabled="!isModelReady" @click="click1">Choose a photo</v-btn>
+                        <input type="file" ref="input1" style="display: none" @change="previewImage" accept="image/*" >                
+                  </v-flex>
+                </v-layout>
+                <!-- <v-layout row>
+                  <v-flex xs12>
+                        <v-flex xs12 class="text-center">
+                          <v-text-field
+                            solo
+                            v-model="location"
+                            label="Location on body"
+                            type="location"
+                            required>
+                          </v-text-field>
+                        </v-flex>
+                  </v-flex>
+                </v-layout> -->
+                <v-layout row>
+                  <v-flex xs12>
+                    <div v-if="imageData!=null">                     
+                      <img class="preview" height="300" width="300" :src="imgURL" ref="image">
+                    </div>       
+                  </v-flex>
+                </v-layout>
+              
+                <v-layout xs12 row>
+                  <v-flex class="text-center">
+                    <!-- <v-btn color="blue" @click="writeToFb" >upload</v-btn> -->
+                    <v-btn color="primary" type="submit" :disabled="!previewVisible">upload</v-btn>
+                  </v-flex>
+                </v-layout>
+              </form>
+            
+           
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+
+    <v-spacer></v-spacer>
+
+    <v-layout row>
+      <v-flex class="text-center">
+        <!-- <v-btn large color="primary" :disabled="!isModelReady" @click="predict">Request Risk Assessment</v-btn> -->
+        <!-- <img ref="image" src="../assets/doggo1.jpg" style="width: 100px"> -->
+        <v-btn large color="primary" :disabled="!previewVisible" @click="predict">Predict</v-btn>
+        <!-- <v-btn large color="primary" @click="loadModel">Predict</v-btn> -->
+      </v-flex>
+    </v-layout>

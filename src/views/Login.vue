@@ -57,7 +57,6 @@
   export default {
       data () {
         return {
-          username: '',
           email: '',
           password: ''
         }
@@ -82,8 +81,8 @@
       },
       methods: {
         onLogin () {
-          console.log({username: this.username, email: this.email, password: this.password})
-          this.$store.dispatch('loginUser', {username: this.username, email: this.email, password: this.password})
+          console.log({email: this.email, password: this.password})
+          this.$store.dispatch('loginUser', {email: this.email, password: this.password})
         },
         onDismissed () {
           this.$store.dispatch('clearError')
