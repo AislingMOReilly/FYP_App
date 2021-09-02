@@ -38,6 +38,7 @@
   export default {
     data () {
         return {
+          currentLesionID: this.lesionID(),
           moles: [
             {
               imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
@@ -59,17 +60,22 @@
             }
         ]
       }
-    }
+    },
     // computed: {
     //   meetups () {
     //     return this.$store.getters.featuredMeetups
     //   }
     // },
-    // methods: {
-    //   onLoadMeetup (id) {
-    //     this.$router.push('/meetups/' + id)
-    //   }
-    // }
+    methods: {
+      // onLoadMeetup (id) {
+      //   this.$router.push('/meetups/' + id)
+      // }
+      lesionID() {
+
+        console.log("success" + this.$store.getters.lesionID)
+        return this.$store.getters.lesionID
+      } 
+    }
   }
 </script>
 

@@ -35,9 +35,9 @@
                       </v-text-field>
                   </v-flex>
                 </v-layout>
-                <v-layout row>
+                <v-layout row class="mt-6">
                   <v-flex xs12>
-                    <v-btn type="submit"  :disabled="loading" :loading="loading">Login
+                    <v-btn large color="primary" type="submit"  :disabled="loading" :loading="loading">Login
                       <span slot="loader" class="custom-loader">
                         <v-icon light>mdi-cached</v-icon>
                        </span>

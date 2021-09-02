@@ -1,27 +1,10 @@
 <template>
-  <v-container>
-    <v-simple-table dark>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">First Name</th>
-            <th class="text-left">Last Name</th>
-            <th class="text-left">DOB</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in users" :key="item.last_name">
-            <td>{{ item.first_name }}</td>
-            <td>{{ item.last_name }}</td>
-            <td>{{ item.dob }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+  <v-container rounded class="table-container">
 
-
-    <!-- <v-card>
+    <v-card v-if="!imageSelected">
       <v-card-title>
+        Lesion Images
+        <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -30,85 +13,192 @@
           hide-details
         ></v-text-field>
       </v-card-title>
+
       <v-data-table dark
+        :v-model="selectedRows"
         :headers="headers"
         :search="search"
-        :items="desserts"
-      ></v-data-table>
+        :items="lesionCollection"
+        :item-key="lesionCollection.id"
+      >
+        <template v-slot:item="{ item }">
+          <tr @click="rowClicked(item)">
+              <td>{{item.id}}</td>
+              <td>{{item.location}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.risk_result}}</td>   
+              <td class="pa-3">
+                <v-avatar style="width: 7em; height: 7em;" >
+                  <img :src="item.url" />
+                </v-avatar>
+              </td>
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
-    <v-btn large color="primary" @click="readUsers">Show Users</v-btn> -->
-
-    <v-layout row wrap v-for="lesion in lesions" :key="lesion.id" class="mb-2">
-      <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-        <v-card class="info">
-          <v-container fluid>
-            <v-layout row>
-              <v-flex xs5 sm4 md3>
-                <v-card-media
-                  :src="lesion.imageUrl"
-                  height="130px"
-                ></v-card-media>
-              </v-flex>
-              <v-flex xs7 sm8 md9>
-                <v-card-title primary-title>
-                  <div>
-                    <h5 class="white--text mb-0">{{ lesion.title }}</h5>
-                    <div>{{ lesion.date | date }}</div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
-                  <v-btn text :to="'/lesions/' + lesion.id">
-                    <v-icon left light>mdi-arrow-forward</v-icon>
-                    View File
-                  </v-btn>
-                </v-card-actions>
+    
+      <v-card v-if="imageSelected">
+        <v-card-text>
+          
+            <v-layout row wrap>
+              <v-flex xs12>
+                <v-carousel>
+                  <v-carousel-item
+                    v-for="item in lesionCollection"
+                    :src="item.url"
+                    :key="item.id">
+                    <v-layout row ma-1 justify-space-between>
+                      <div>ID: {{ item.id }}</div>
+                      <!-- <div class="title">{{ item.risk_result }}</div> -->
+                      <div>Risk Result: {{ item.risk_result }}</div>
+                      <div>Location: {{ item.location }}</div>
+                      <div>Description: {{ item.description }}</div>
+                    </v-layout>  
+                  </v-carousel-item>
+                </v-carousel>
               </v-flex>
             </v-layout>
-          </v-container>
-        </v-card>
-      </v-flex>
-    </v-layout>
-
+            <!-- <v-container v-for="item in lesionCollection" :key="item.id">
+              <v-layout row>
+                <v-flex xs12>
+                  <h3>Location</h3>
+                  <div class="image-info">{{ item.location }}</div>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <h3>Description</h3>
+                  <div class="image-info">{{ item.description }}</div>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <h3>Risk Result</h3>
+                  <div class="image-info">{{ item.risk_result }}</div>
+                </v-flex>
+              </v-layout>     
+            </v-container> -->
+            <v-layout row class="mt-6">
+                <v-flex xs12>
+                  <v-btn large color="primary" @click="imageSelected=false" :disabled="loading" class="ma-2">Back
+                    <span slot="loader" class="custom-loader">
+                      <v-icon light>mdi-cached</v-icon>
+                    </span>
+                  </v-btn>
+                </v-flex>
+              </v-layout>       
+          </v-card-text>
+        </v-card>                  
+    <!-- </v-container> -->
+  
   </v-container>
-
 </template>
 
 <script>
   import { usersCollection } from "../firebase"
   
   export default {
-    data () {
+    data () {  
       return {
-        users: this.readUsers()
+        imageSelected: false,
+        rowId: '',
+        currentUser: this.user(),
+        lesionCollection: this.tableData(),
+        search: '',
+        selectedRows: [],
+        // users: this.readUsers(),
+        headers: [
+          {text: 'ID',
+          align: 'start',
+          sortable: false,
+          value: 'id'},
+          {text: 'Location',
+          value: 'location'},
+          {text: 'Description',
+          value: 'description'},
+          {text: 'Risk Result',
+          value: 'risk_result'},
+          {text: 'URL',
+          value: 'url'},
+        ],
       }
     },
     computed: {
-      lesions () {
-        return this.$store.getters.loadedLesions
-      }
+
     },
-    mounted () {
-    }, 
     methods: {
-      readUsers () {
-        let userData = []
-        usersCollection
-        .get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            userData.push({
-              id: doc.id,
-              first_name: doc.data().first_name,
-              last_name: doc.data().last_name,
-              dob: doc.data().dob,
-              email: doc.data().email,
-            });
-          });
+      rowClicked(row) {
+        this.rowId = row.id
+        this.imageSelected = true
+        // this.$store.dispatch('lesionIDaction', this.rowId)
+        // this.$store.getters.lesionID
+        
+        // this.$router.push('/images/' + row.id)
+        //this.$router.push('/images/')
+      },
+      user () {
+        return {id: 'bpd27bptyvWc4ulqSoC9'}
+      },
+      tableData() {
+        let lesionData = []
+        // let lesionsSnapshot = usersCollection.doc(this.user().id).collection('lesions').get()
+        //this.lesionCollection
+        usersCollection.doc('bpd27bptyvWc4ulqSoC9').collection('lesions')
+        .get().then((lesionsSnapshot) => {
+           lesionsSnapshot.forEach((doc) => {
+              lesionData.push({
+                id: doc.id,
+                location: doc.data().location,
+                description: doc.data().description,
+                risk_result: doc.data().risk_result,
+                url: doc.data().url,
+              });
+           })
         })
         .catch((error) => {
           console.log("Error getting documents: ", error);
-        });
-        return userData
-      } 
+        })
+        console.log('lesionData')
+        console.log(lesionData)
+        return lesionData
+      },
+
+      
+      // readUsers () {
+      //   let userData = []
+      //   usersCollection
+      //   .get().then((querySnapshot) => {
+      //     querySnapshot.forEach((doc) => {
+      //       userData.push({
+      //         id: doc.id,
+      //         first_name: doc.data().first_name,
+      //         last_name: doc.data().last_name,
+      //         dob: doc.data().dob,
+      //         email: doc.data().email,
+      //       });
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     console.log("Error getting documents: ", error);
+      //   });
+      //   console.log('userData')
+      //   console.log(userData)
+      //   return userData
+      // } 
     }  
   }
 </script>
+
+
+<style>
+  .table-container {
+    background-color: #ccc;
+  }
+  .v-data-table-header {
+    background-color: #1976d2;
+  }
+  .v-data-footer {
+    background-color: #1976d2;
+  }
+
+</style>

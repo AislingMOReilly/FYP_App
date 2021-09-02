@@ -20,15 +20,20 @@
             <v-layout row>
               <v-flex xs12>
                   <v-file-input 
+                  show-size
+                  label="Image input"
                   @change="preview_image"
-                  v-model="image">
+                  v-model="image"
+                  accept="image/*"
+                  :rules="[inputRules]"
+                  >
                   </v-file-input>  
               </v-flex>
             </v-layout>
             <v-layout row>
               <v-flex xs12>  
                 <!-- <v-img :src="url"></v-img> -->
-                <img style="width: 100%;" ref="imageInput" :src="url"/>
+                <img style="width: 100%; max-width: 512px;"  ref="imageInput" :src="url"/>
                </v-flex>
             </v-layout>
             <v-layout row>
@@ -43,7 +48,7 @@
             <v-layout row>
               <v-flex xs12 > 
                 <span class="border border-primary">
-                  <h4 ref="predResult" class="subheading">{{ this.predMsg }}</h4>
+                  <p ref="predResult" class="ma-3 subheading">{{ this.predMsg }}</p>
                 </span>
               </v-flex>
             </v-layout>
@@ -118,6 +123,11 @@
     mounted () {
       this.loadModel();
     },
+    computed: { 
+      inputRules() {
+        return v => !v || v.size < 2000000 || 'Please supply image less than 2MB'
+      }
+    },
     methods: { 
       user () {
         //console.log(this.$store.getters.user)
@@ -138,8 +148,10 @@
         const storageRef=firebase.storage().ref(`images/${this.currentUser.id}/${this.image.name}`).put(this.image);
         storageRef.on(`state_changed`,snapshot => {
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{console.log(error.message)},
-          () => {this.uploadValue=100;
+          }, 
+          error=>{console.log(error.message)},
+          () => {
+            this.uploadValue=100;
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
                 this.cloudUrl = url;
                 console.log("cloudUrl", this.cloudUrl)
@@ -172,10 +184,8 @@
       async loadModel() {
         console.log("Loading model")
         this.isModelReady = false;
-        this.model = await tf.loadLayersModel('https://raw.githubusercontent.com/AislingMOReilly/CNN-version1/main/model.json');
+        this.model = await tf.loadLayersModel('https://raw.githubusercontent.com/AislingMOReilly/CNN-model/main/model.json');
         this.isModelReady = true;
-        
-        alert("Successfully loaded");
       },
 
       async predict() {
@@ -186,21 +196,17 @@
         let modelInput = tf.image.resizeBilinear(tf.browser.fromPixels(lesionImage), [512, 512], true).expandDims(0).toFloat().div(255.0);
         let prediction = await this.model.predict(modelInput).data();
 
-        //console.log(prediction[0])
         console.log(prediction[0] * 100)
-        //console.log((prediction[0] * 100).toFixed(6))
         let percent = (prediction[0] * 100)
 
-        if(percent<= .5) {
-          console.log("Result is more likely benign", percent);
+        if(percent <= 50) {
           this.predMsg = String(percent) + "% => Result is more likely benign"
         }
-        else if(percent>= .5) {
-          console.log("May display signs of malignancy" + percent);
+        else if(percent >= 50) {
           this.predMsg = String(percent) + "% => May display signs of malignancy"
         }
         else {
-          alert("Error");
+          console.log("Error");
         }
         this.percentPred = percent;
         this.riskRequested = true;

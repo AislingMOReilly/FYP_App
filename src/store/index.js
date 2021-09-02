@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    lesionId: 'fuck',
     //////////////////// Testing carousel ////////////////////
     loadedLesions: [
       {
@@ -54,6 +55,11 @@ export default new Vuex.Store({
         lesion.timestamp = payload.timestamp
       }
     },
+    setLesionID (state, payload) {
+      console.log('In setter')
+      console.log(payload)
+      state.lesionId  = payload
+    },
     setUser (state, payload) {
       state.user = payload
     },
@@ -68,6 +74,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    lesionIDaction ({commit, payload}) {
+      console.log('In action')
+      console.log(payload)
+      commit('setLesionID', payload)
+    },
     loadLesions ({commit, getters}) {
        commit('setLoading', true)
        db.collection('users').doc(getters.user.id).collection('lesions')
@@ -173,17 +184,17 @@ export default new Vuex.Store({
         return lesionA.timestamp > lesionB.timestamp
       })
     },
-    /////////Maybe redundant////////////
-    featuredLesions (state, getters) {
-       return getters.loadedLesions.slice(0, 5)
-    },
-    ///////////////
     loadedLesion (state) {
       return (lesionId) => {
         return state.loadedLesions.find((lesion) => {
           return lesion.id === lesionId
         })
       }
+    },
+    lesionID (state) {
+      console.log('Voila in getter')
+      console.log(state.lesionId)
+      return state.lesionId
     },
     user (state) {
       return state.user

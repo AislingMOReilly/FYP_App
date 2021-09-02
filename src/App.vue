@@ -3,12 +3,15 @@
     <v-navigation-drawer temporary app v-model="sideNav">
       
       <v-list-item>
-        <v-list-item-avatar>
+        <!-- <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-        </v-list-item-avatar>
+        </v-list-item-avatar> -->
+         <v-list-item-icon>
+          <v-icon>mdi-account-circle-outline</v-icon>
+        </v-list-item-icon>
   
         <v-list-item-content>
-          <v-list-item-title>John Smith</v-list-item-title>
+          <v-list-item-title>User</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -45,7 +48,7 @@
         class="hidden-sm-and-up">
       </v-app-bar-nav-icon>
 
-      <v-app-bar-title class="hidden-xs-only" style="min-width: 150px;">Mole Analyser</v-app-bar-title>
+      <v-app-bar-title class="hidden-xs-only" style="width: 200px">Mole Analyser</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
@@ -106,9 +109,20 @@ export default {
     },
     methods: {
       onLogout () {
+        this.$router.push('/login')
         this.$store.dispatch('logout')
       }
     }
 
 };
 </script>
+
+<style>
+  .v-app-bar-title__content {
+    width: 180px;
+  }
+  .v-app-bar-title__placeholder {
+    width: 180px;
+  }
+
+</style>
